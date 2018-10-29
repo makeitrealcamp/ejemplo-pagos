@@ -1,0 +1,28 @@
+<a href="/payu">Nuevo Cobro</a>
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Id</th>
+      <th>Valor</th>
+      <th>Estado</th>
+      <th>Método de pago</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @charges.each do |charge| %>
+      <tr>
+        <td><%= charge.created_at %></td>
+        <td><%= charge.uid %></td>
+        <td><%= charge.amount %></td>
+        <td>
+          <%= charge.status %>
+          <% if charge.error_message %>
+            <small style="display: block;"><%= charge.error_message %></small>
+          <% end %>
+        </td>
+        <td><%= charge.payment_method %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

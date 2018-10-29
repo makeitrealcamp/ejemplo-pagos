@@ -1,0 +1,15 @@
+<form method="post" action="<%= payu_url %>">
+ <input name="merchantId"    type="text"  value="<%= ENV['PAYU_MERCHANT_ID'] %>">
+ <input name="accountId"     type="text"  value="<%= ENV['PAYU_ACCOUNT_ID'] %>">
+ <input name="description"   type="text"  value="Pago programa Full Stack">
+ <input name="referenceCode" type="text"  value="<%= @charge.uid %>">
+ <input name="amount"        type="text"  value="<%= @charge.amount %>">
+ <input name="tax"           type="text"  value="0">
+ <input name="taxReturnBase" type="text"  value="0">
+ <input name="currency"      type="text"  value="COP">
+ <input name="signature"     type="text"  value="<%= @signature %>">
+ <input name="test"          type="text"  value="1">
+ <input name="responseUrl"    type="text"  value="http://localhost:3000/payu/response">
+ <input name="confirmationUrl"    type="text"  value="http://localhost:3000/payu/confirmation">
+ <input name="Submit"        type="submit"  value="Enviar" >
+</form>

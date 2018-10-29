@@ -1,0 +1,9 @@
+<%= form_tag "/payu", method: :post do %>
+  <div class="form-group">
+    <label for="amount">Valor: </label>
+    <input type="text" id="amount" name="amount">
+  </div>
+  <div>
+    <button type="submit">Ir a Pagar</button>
+  </div>
+<% end %>

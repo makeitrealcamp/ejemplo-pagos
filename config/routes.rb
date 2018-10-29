@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root "charges#index"
+
+  get  "/payu", to: "payu#new"
+  post "/payu", to: "payu#create"
+  get  "/payu/response", to: "payu#result"
+  post "/payu/confirmation", to: "payu#confirmation"
 end

@@ -15,7 +15,7 @@ class EpaycoController < ApplicationController
   def confirmation
     charge = Charge.where(uid: params[:x_id_invoice]).take
     if charge.nil?
-      render nothing: true, status: :unprocessable_entity
+      head :unprocessable_entity
       return
     end
 
@@ -27,14 +27,14 @@ class EpaycoController < ApplicationController
       elsif params[:x_code_response] == "3"
         charge.update!(status: :pending)
       else
-        render nothing: true, status: :unprocessable_entity
+        head :unprocessable_entity
         return
       end
-      render nothing: true, status: :no_content
+      head :no_content
     else
       puts "Signature: #{signature}"
       puts "Received signature: #{params[:x_signature]}"
-      render nothing: true, status: :unprocessable_entity
+      head :unprocessable_entity
     end
   end
 

@@ -32,6 +32,8 @@ class EpaycoController < ApplicationController
       end
       render nothing: true, status: :no_content
     else
+      puts "Signature: #{signature}"
+      puts "Received signature: #{params[:x_signature]}"
       render nothing: true, status: :unprocessable_entity
     end
   end
@@ -39,6 +41,6 @@ class EpaycoController < ApplicationController
   private
     def signature
       msg = "#{params[:x_cust_id_cliente]}^#{ENV['EPAYCO_SECRET']}^#{params[:x_ref_payco]}^#{params[:x_transaction_id]}^#{params[:x_amount]}^#{params[:x_currency_code]}"
-      Digest::SHA256.hexdigest msg
+      Digest::SHA256.hexdigest(msg)
     end
 end

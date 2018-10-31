@@ -1,29 +1,40 @@
-<a href="/payu">Nuevo Cobro con PayU</a>
-<a href="/epayco">Nuevo Cobro con ePayco</a>
-<table>
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Id</th>
-      <th>Valor</th>
-      <th>Estado</th>
-      <th>Método de pago</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @charges.each do |charge| %>
-      <tr>
-        <td><%= charge.created_at %></td>
-        <td><%= charge.uid %></td>
-        <td><%= charge.amount %></td>
-        <td>
-          <%= charge.status %>
-          <% if charge.error_message %>
-            <small style="display: block;"><%= charge.error_message %></small>
-          <% end %>
-        </td>
-        <td><%= charge.payment_method %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="charges pt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="/payu" class="btn btn-link">Nuevo Cobro con PayU</a>
+        <a href="/epayco" class="btn btn-link">Nuevo Cobro con ePayco</a>
+
+        <table class="table mt-3">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Referencia</th>
+              <th>Valor</th>
+              <th>Estado</th>
+              <th>Método de pago</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @charges.each do |charge| %>
+              <tr>
+                <td><%= charge.created_at %></td>
+                <td><%= charge.uid %></td>
+                <td><%= charge.amount %></td>
+                <td>
+                  <%= charge.status %>
+                  <% if charge.error_message %>
+                    <small style="display: block;"><%= charge.error_message %></small>
+                  <% end %>
+                </td>
+                <td><%= charge.payment_method %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>

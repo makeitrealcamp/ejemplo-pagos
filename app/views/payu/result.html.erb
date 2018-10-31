@@ -1,5 +1,41 @@
-<div>
-  <strong>Status: </strong> <%= @charge.status %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <%= link_to "Volver a los pagos", root_path, class: "btn btn-link" %>
+      <table class="table table-bordered mt-3">
+        <tr>
+          <th>Referencia</th>
+          <td><%= @charge.uid %></td>
+        </tr>
+        <tr>
+          <th>Estado</th>
+          <td><%= params["lapTransactionState"] %></td>
+        </tr>
+        <tr>
+          <th>Fecha</th>
+          <td><%= params["processingDate"]%></td>
+        </tr>
+        <tr>
+          <th>Descripción</th>
+          <td><%= params["description"] %></td>
+        </tr>
+        <tr>
+          <th>Valor</th>
+          <td><%= @charge.amount %></td>
+        </tr>
+        <tr>
+          <th>Respuesta</th>
+          <td><%= params["lapResponseCode"] %></td>
+        </tr>
+        <tr>
+          <th>Método de pago</th>
+          <td><%= params["lapPaymentMethodType"] %></td>
+        </tr>
+        <tr>
+          <th>Mensaje</th>
+          <td><%= params["message"] %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
-
-<div><%= @charge.error_message %></div>

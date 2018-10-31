@@ -1,0 +1,23 @@
+<script>
+var handler = ePayco.checkout.configure({
+  key: '<%= ENV["EPAYCO_KEY"] %>',
+  test: true
+});
+
+var data={
+  name: "Pago curso Full Stack",
+  description: "Pago curso Full Stack",
+  invoice: "<%= @charge.uid %>",
+  currency: "cop",
+  amount: "<%= @charge.amount %>",
+  tax_base: "0",
+  tax: "0",
+  country: "co",
+  lang: "es",
+  external: "false",
+  response: "<%= base_url %>/epayco/response",
+  confirmation: "<%= base_url %>/epayco/confirmation"
+};
+
+handler.open(data);
+</script>

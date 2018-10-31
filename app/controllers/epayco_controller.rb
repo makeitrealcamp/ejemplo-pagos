@@ -11,7 +11,7 @@ class EpaycoController < ApplicationController
   def result
     url = "https://secure.epayco.co/validation/v1/reference/#{params[:ref_payco]}"
     response = HTTParty.get(url)
-    
+
     parsed = JSON.parse(response.body)
     if parsed["success"]
       @data = parsed["data"]
@@ -27,6 +27,8 @@ class EpaycoController < ApplicationController
       head :unprocessable_entity
       return
     end
+
+    charge.update!(response_data: params.as_json)
 
     if signature == params[:x_signature]
       if params[:x_cod_response] == "1"

@@ -41,6 +41,8 @@ class PayuController < ApplicationController
       return
     end
 
+    charge.update!(response_data: params.as_json)
+
     data = {
       merchant_id: params[:merchant_id],
       reference: params[:reference_sale],

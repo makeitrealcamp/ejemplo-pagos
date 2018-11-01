@@ -35,9 +35,9 @@ class PayuController < ApplicationController
   end
 
   def confirmation
-    charge = Charge.where(uid: params[:referenceCode]).take
+    charge = Charge.where(uid: params[:reference_sale]).take
     if charge.nil?
-      render nothing: true, status: :unprocessable_entity
+      head :unprocessable_entity
       return
     end
 
@@ -56,7 +56,7 @@ class PayuController < ApplicationController
       head :ok
     else
       charge.error!
-      render nothing: true, status: :unprocessable_entity
+      head :unprocessable_entity
     end
   end
 

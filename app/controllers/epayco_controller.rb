@@ -28,19 +28,10 @@ class EpaycoController < ApplicationController
       return
     end
 
-    charge.update!(response_data: params.as_json)
+    charge.update!(response_data: params.as_json, error_message: nil)
 
     if signature == params[:x_signature]
-      if params[:x_cod_response] == "1"
-        charge.update!(status: :paid)
-      elsif params[:x_cod_response] == "2" || params[:x_cod_response] == "4"
-        charge.update!(status: :rejected, error_message: params[:x_response_reason_text])
-      elsif params[:x_code_response] == "3"
-        charge.update!(status: :pending)
-      else
-        head :unprocessable_entity
-        return
-      end
+      update_status(charge, params[:x_cod_response])
       head :no_content
     else
       puts "Signature: #{signature}"
@@ -53,5 +44,28 @@ class EpaycoController < ApplicationController
     def signature
       msg = "#{params[:x_cust_id_cliente]}^#{ENV['EPAYCO_SECRET']}^#{params[:x_ref_payco]}^#{params[:x_transaction_id]}^#{params[:x_amount]}^#{params[:x_currency_code]}"
       Digest::SHA256.hexdigest(msg)
+    end
+
+    def update_status(charge, status)
+      if status == "1"
+        charge.paid!
+      elsif status == "2" || status == "4"
+        charge.update!(status: :rejected, error_message: params[:x_response_reason_text])
+      elsif status == "3"
+        charge.pending!
+      else
+        head :unprocessable_entity
+        return
+      end
+    end
+
+    def update_payment_method(charge, payment_method)
+      if ["VS", "MC", "DC", "CR", "AM"].include?(payment_method)
+        charge.creditcard!
+      elsif payment_method == "PSE"
+        charge.pse!
+      else
+        charge.referenced!
+      end
     end
 end

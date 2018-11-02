@@ -2,13 +2,15 @@
 
 Este proyecto muestra cómo recibir pagos con [PayU](https://www.payulatam.com/) e [ePayco](https://epayco.co/).
 
-## Requisitos
+## Requisitos
 
 Para ejecutar este proyecto localmente necesitas tener instalado:
 
 * Ruby
 * PostgreSQL
 * Una cuenta en [PayU](https://www.payulatam.com/) y/o en [ePayco](https://epayco.co/)
+
+## Instrucciones
 
 Clona el proyecto:
 

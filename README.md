@@ -1,24 +1,47 @@
-# README
+# Pagos automáticos
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este proyecto muestra cómo recibir pagos con [PayU](https://www.payulatam.com/) e [ePayco](https://epayco.co/).
 
-Things you may want to cover:
+## Requisitos
 
-* Ruby version
+Para ejecutar este proyecto localmente necesitas tener instalado:
 
-* System dependencies
+* Ruby
+* PostgreSQL
+* Una cuenta en [PayU](https://www.payulatam.com/) y/o en [ePayco](https://epayco.co/)
 
-* Configuration
+Clona el proyecto:
 
-* Database creation
+```
+git clone https://github.com/makeitrealcamp/ejemplo-pagos.git
+```
 
-* Database initialization
+Crea un archivo `config/application.yml` con el siguiente contenido. Reemplaza los valoes con la que obtengas de tu cuenta en PayU e ePayco:
 
-* How to run the test suite
+```yml
+PAYU_MERCHANT_ID: "..."
+PAYU_ACCOUNT_ID: "..."
+PAYU_API_KEY: "..."
 
-* Services (job queues, cache servers, search engines, etc.)
+EPAYCO_KEY: "..."
+# Este valor se llama en ePayco P_KEY (no confundir con PRIVATE_KEY)
+EPAYCO_SECRET: "..."
 
-* Deployment instructions
+HOSTNAME: localhost:3000
+```
 
-* ...
+Si vas a desplegar en Heroku debes crear estas variables de entorno en la configuración de la cuenta o utilizando `heroku config`.
+
+Instala las dependencias:
+
+```
+bundle
+```
+
+Crea la base de datos y carga el esquema:
+
+```
+rails db:create & rails db:schema:load
+```
+
+Eso es todo. Localmente no se van a actualizar los pagos con el resultado, sólo cuando publiques la aplicación en Internet.
